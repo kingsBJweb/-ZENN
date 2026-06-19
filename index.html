@@ -1,0 +1,2090 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZENN · Yoga & Bem-estar</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --midnight: #0A0F1E;
+    --indigo: #1A1F3C;
+    --indigo-light: #252B4A;
+    --gold: #C9A84C;
+    --gold-pale: #E8CC7E;
+    --fog: #F0EDE6;
+    --sage: #7BAF7A;
+    --sage-dark: #5A8A59;
+    --violet: #4A3F7A;
+    --rose: #C47A85;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    background: var(--midnight);
+    color: var(--fog);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CURSOR PERSONALIZADO */
+  .cursor {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--gold);
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s ease;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--gold);
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9998;
+    transition: transform 0.15s ease, width 0.3s, height 0.3s;
+    opacity: 0.6;
+  }
+
+  /* NAVBAR */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    padding: 1.5rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(10,15,30,0.95) 0%, transparent 100%);
+    backdrop-filter: blur(2px);
+  }
+
+  .logo {
+    font-family: 'Cinzel', serif;
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .logo span { color: var(--fog); opacity: 0.4; }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2.5rem;
+  }
+
+  nav a {
+    color: var(--fog);
+    text-decoration: none;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    transition: opacity 0.3s, color 0.3s;
+  }
+
+  nav a:hover { opacity: 1; color: var(--gold); }
+
+  .nav-cta {
+    background: var(--gold) !important;
+    color: var(--midnight) !important;
+    padding: 0.6rem 1.5rem;
+    border-radius: 2rem;
+    opacity: 1 !important;
+    font-weight: 600;
+    transition: transform 0.2s, box-shadow 0.2s !important;
+  }
+  .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(201,168,76,0.4); }
+
+  /* SEÇÕES GERAIS */
+  section {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  /* ===================== HERO ===================== */
+  #hero {
+    background: var(--midnight);
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-3d-bg {
+    position: absolute;
+    inset: 0;
+    perspective: 800px;
+    overflow: hidden;
+  }
+
+  /* CADEIA 3D ANIMADA */
+  .chain-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    animation: chainFloat 20s linear infinite;
+  }
+
+  @keyframes chainFloat {
+    0% { transform: rotateX(10deg) rotateY(0deg); }
+    100% { transform: rotateX(10deg) rotateY(360deg); }
+  }
+
+  .chain-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 3px solid;
+    transform-style: preserve-3d;
+  }
+
+  /* Anéis da cadeia */
+  .ring-1 {
+    width: 200px; height: 200px;
+    border-color: rgba(201,168,76,0.15);
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%) rotateX(70deg);
+    animation: ringPulse1 6s ease-in-out infinite;
+  }
+  .ring-2 {
+    width: 300px; height: 300px;
+    border-color: rgba(201,168,76,0.1);
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%) rotateX(70deg) translateY(-80px);
+    animation: ringPulse2 6s ease-in-out infinite 0.5s;
+  }
+  .ring-3 {
+    width: 200px; height: 200px;
+    border-color: rgba(201,168,76,0.15);
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%) rotateX(70deg) translateY(-160px);
+    animation: ringPulse1 6s ease-in-out infinite 1s;
+  }
+  .ring-4 {
+    width: 300px; height: 300px;
+    border-color: rgba(123,175,122,0.08);
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%) rotateX(70deg) translateY(-240px);
+    animation: ringPulse2 6s ease-in-out infinite 1.5s;
+  }
+  .ring-5 {
+    width: 200px; height: 200px;
+    border-color: rgba(201,168,76,0.12);
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%) rotateX(70deg) translateY(80px);
+    animation: ringPulse1 6s ease-in-out infinite 2s;
+  }
+  .ring-6 {
+    width: 300px; height: 300px;
+    border-color: rgba(74,63,122,0.15);
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%) rotateX(70deg) translateY(160px);
+    animation: ringPulse2 6s ease-in-out infinite 2.5s;
+  }
+
+  @keyframes ringPulse1 {
+    0%, 100% { opacity: 0.6; transform: translate(-50%,-50%) rotateX(70deg) scale(1); }
+    50% { opacity: 1; transform: translate(-50%,-50%) rotateX(70deg) scale(1.05); }
+  }
+  @keyframes ringPulse2 {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.8; }
+  }
+
+  /* PARTÍCULAS */
+  .particles {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .particle {
+    position: absolute;
+    width: 2px; height: 2px;
+    background: var(--gold);
+    border-radius: 50%;
+    animation: particleDrift linear infinite;
+  }
+
+  @keyframes particleDrift {
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* HERO CONTEÚDO */
+  .hero-content {
+    position: relative;
+    z-index: 10;
+    max-width: 900px;
+    padding: 2rem;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.8;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 1s ease 0.2s both;
+  }
+
+  .hero-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(3rem, 8vw, 7rem);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: var(--fog);
+    margin-bottom: 1.5rem;
+    animation: fadeUp 1s ease 0.4s both;
+  }
+
+  .hero-title .accent { color: var(--gold); }
+  .hero-title .light { opacity: 0.3; }
+
+  .hero-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1rem, 2vw, 1.4rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--fog);
+    opacity: 0.6;
+    max-width: 600px;
+    margin: 0 auto 3rem;
+    line-height: 1.8;
+    animation: fadeUp 1s ease 0.6s both;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeUp 1s ease 0.8s both;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--midnight);
+    padding: 1rem 2.5rem;
+    border-radius: 3rem;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.3s;
+    display: inline-block;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(201,168,76,0.5);
+  }
+
+  .btn-outline {
+    border: 1px solid rgba(240,237,230,0.3);
+    color: var(--fog);
+    padding: 1rem 2.5rem;
+    border-radius: 3rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: border-color 0.3s, background 0.3s;
+    display: inline-block;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.1);
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    animation: fadeUp 1s ease 1.2s both;
+    cursor: pointer;
+    z-index: 10;
+  }
+
+  .scroll-indicator span {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    opacity: 0.4;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.2); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===================== MENU LATERAL (ÂNCORAS) ===================== */
+  .side-nav {
+    position: fixed;
+    right: 2.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 500;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .side-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgba(240,237,230,0.2);
+    transition: background 0.3s, transform 0.3s;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .side-dot.active, .side-dot:hover {
+    background: var(--gold);
+    transform: scale(1.4);
+  }
+
+  .side-dot::after {
+    content: attr(data-label);
+    position: absolute;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--gold);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+
+  .side-dot:hover::after { opacity: 1; }
+
+  /* ===================== SEÇÃO: YOGA 3D ===================== */
+  #yoga {
+    background: linear-gradient(135deg, var(--midnight) 0%, var(--indigo) 100%);
+    padding: 6rem 4rem;
+  }
+
+  .section-inner {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    opacity: 0.8;
+  }
+
+  .section-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 700;
+    color: var(--fog);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+
+  .section-desc {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: var(--fog);
+    opacity: 0.6;
+    max-width: 500px;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+  }
+
+  /* GRID POSES YOGA */
+  .yoga-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .pose-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(201,168,76,0.1);
+    border-radius: 1.5rem;
+    padding: 2.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, border-color 0.3s, background 0.3s;
+    cursor: pointer;
+  }
+
+  .pose-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(201,168,76,0.4);
+    background: rgba(201,168,76,0.05);
+  }
+
+  .pose-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(201,168,76,0.1), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .pose-card:hover::before { opacity: 1; }
+
+  .pose-icon {
+    font-size: 3.5rem;
+    margin-bottom: 1.2rem;
+    display: block;
+    filter: drop-shadow(0 0 20px rgba(201,168,76,0.3));
+  }
+
+  .pose-name {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+
+  .pose-sanskrit {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--fog);
+    opacity: 0.4;
+    margin-bottom: 1rem;
+  }
+
+  .pose-desc {
+    font-size: 0.85rem;
+    line-height: 1.7;
+    opacity: 0.6;
+    color: var(--fog);
+  }
+
+  .pose-difficulty {
+    display: flex;
+    gap: 0.3rem;
+    margin-top: 1.2rem;
+  }
+
+  .diff-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: rgba(201,168,76,0.3);
+  }
+
+  .diff-dot.filled { background: var(--gold); }
+
+  /* ===================== SEÇÃO: RESPIRAÇÃO 3D ===================== */
+  #respiracao {
+    background: var(--midnight);
+    flex-direction: column;
+  }
+
+  .breath-scene {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .breath-orb {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%,
+      rgba(123,175,122,0.4),
+      rgba(74,63,122,0.2) 50%,
+      transparent 70%
+    );
+    box-shadow:
+      0 0 60px rgba(123,175,122,0.2),
+      inset 0 0 60px rgba(123,175,122,0.1);
+    animation: breathOrb 4s ease-in-out infinite;
+    border: 1px solid rgba(123,175,122,0.2);
+  }
+
+  @keyframes breathOrb {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.4); opacity: 1; }
+  }
+
+  .breath-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid;
+    animation: breathRingExpand 4s ease-in-out infinite;
+  }
+
+  .br1 { width: 320px; height: 320px; border-color: rgba(123,175,122,0.2); animation-delay: 0s; }
+  .br2 { width: 380px; height: 380px; border-color: rgba(123,175,122,0.12); animation-delay: 0.3s; }
+  .br3 { width: 450px; height: 450px; border-color: rgba(123,175,122,0.06); animation-delay: 0.6s; }
+  .br4 { width: 530px; height: 530px; border-color: rgba(123,175,122,0.03); animation-delay: 0.9s; }
+
+  @keyframes breathRingExpand {
+    0%, 100% { transform: scale(0.85); opacity: 0.8; }
+    50% { transform: scale(1.1); opacity: 1; }
+  }
+
+  .breath-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .breath-counter {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(4rem, 10vw, 8rem);
+    font-weight: 900;
+    color: var(--sage);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 40px rgba(123,175,122,0.4);
+    animation: breathCounter 4s ease-in-out infinite;
+  }
+
+  @keyframes breathCounter {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+
+  .breath-phase {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--fog);
+    opacity: 0.6;
+    margin-bottom: 3rem;
+    letter-spacing: 0.1em;
+  }
+
+  .breath-techniques {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .technique-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(123,175,122,0.15);
+    border-radius: 1.2rem;
+    padding: 2rem;
+    flex: 1;
+    min-width: 200px;
+    max-width: 240px;
+    text-align: left;
+    transition: transform 0.3s, border-color 0.3s;
+    cursor: pointer;
+  }
+
+  .technique-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(123,175,122,0.4);
+  }
+
+  .technique-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
+
+  .technique-name {
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
+    color: var(--sage);
+    margin-bottom: 0.4rem;
+    letter-spacing: 0.05em;
+  }
+
+  .technique-rhythm {
+    font-size: 0.75rem;
+    color: var(--gold);
+    opacity: 0.8;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+  }
+
+  .technique-desc {
+    font-size: 0.8rem;
+    color: var(--fog);
+    opacity: 0.5;
+    line-height: 1.6;
+  }
+
+  /* TIMER INTERATIVO */
+  .breath-timer-area {
+    margin-top: 3rem;
+    text-align: center;
+  }
+
+  .breath-start-btn {
+    background: transparent;
+    border: 1px solid var(--sage);
+    color: var(--sage);
+    padding: 1rem 3rem;
+    border-radius: 3rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    transition: all 0.3s;
+  }
+
+  .breath-start-btn:hover, .breath-start-btn.active {
+    background: var(--sage);
+    color: var(--midnight);
+    box-shadow: 0 0 30px rgba(123,175,122,0.3);
+  }
+
+  .live-counter {
+    font-family: 'Cinzel', serif;
+    font-size: 5rem;
+    color: var(--sage);
+    text-shadow: 0 0 30px rgba(123,175,122,0.5);
+    min-height: 6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
+
+  .live-phase {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.2rem;
+    color: var(--fog);
+    opacity: 0.5;
+    min-height: 2rem;
+  }
+
+  /* ===================== SEÇÃO: MEDITAÇÃO ===================== */
+  #meditacao {
+    background: linear-gradient(180deg, var(--midnight) 0%, #0D0A1A 100%);
+  }
+
+  .meditation-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+    max-width: 1200px;
+    width: 100%;
+    padding: 0 4rem;
+  }
+
+  .mandala-container {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    margin: 0 auto;
+  }
+
+  .mandala-ring {
+    position: absolute;
+    top: 50%; left: 50%;
+    border-radius: 50%;
+    border-style: solid;
+    border-color: transparent;
+    border-top-color: var(--violet);
+    border-bottom-color: var(--violet);
+  }
+
+  .mr1 {
+    width: 80px; height: 80px;
+    border-width: 2px;
+    margin: -40px 0 0 -40px;
+    animation: spin 3s linear infinite;
+  }
+  .mr2 {
+    width: 130px; height: 130px;
+    border-width: 1.5px;
+    margin: -65px 0 0 -65px;
+    animation: spin 5s linear infinite reverse;
+    border-top-color: var(--gold);
+    border-bottom-color: var(--gold);
+  }
+  .mr3 {
+    width: 190px; height: 190px;
+    border-width: 1px;
+    margin: -95px 0 0 -95px;
+    animation: spin 8s linear infinite;
+    border-top-color: var(--rose);
+    border-bottom-color: var(--rose);
+  }
+  .mr4 {
+    width: 260px; height: 260px;
+    border-width: 1px;
+    margin: -130px 0 0 -130px;
+    animation: spin 12s linear infinite reverse;
+    border-top-color: rgba(201,168,76,0.3);
+    border-bottom-color: rgba(201,168,76,0.3);
+  }
+  .mr5 {
+    width: 340px; height: 340px;
+    border-width: 0.5px;
+    margin: -170px 0 0 -170px;
+    animation: spin 20s linear infinite;
+    border-top-color: rgba(74,63,122,0.3);
+    border-bottom-color: rgba(74,63,122,0.3);
+  }
+  .mr6 {
+    width: 390px; height: 390px;
+    border-width: 0.5px;
+    margin: -195px 0 0 -195px;
+    animation: spin 30s linear infinite reverse;
+    border-top-color: rgba(123,175,122,0.15);
+    border-bottom-color: rgba(123,175,122,0.15);
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .mandala-center {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--gold) 0%, var(--violet) 60%, transparent 100%);
+    animation: mandalaPulse 3s ease-in-out infinite;
+  }
+
+  @keyframes mandalaPulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(201,168,76,0.4); }
+    50% { box-shadow: 0 0 50px rgba(201,168,76,0.8), 0 0 100px rgba(201,168,76,0.2); }
+  }
+
+  .meditation-text .section-desc {
+    max-width: 100%;
+    margin-bottom: 2.5rem;
+  }
+
+  .session-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .session-item {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.2rem 1.5rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 1rem;
+    transition: all 0.3s;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--fog);
+  }
+
+  .session-item:hover {
+    background: rgba(74,63,122,0.15);
+    border-color: rgba(74,63,122,0.4);
+    transform: translateX(5px);
+  }
+
+  .session-duration {
+    font-family: 'Cinzel', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--gold);
+    min-width: 50px;
+  }
+
+  .session-info { flex: 1; }
+
+  .session-name {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--fog);
+    margin-bottom: 0.2rem;
+  }
+
+  .session-type {
+    font-size: 0.75rem;
+    color: var(--fog);
+    opacity: 0.4;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .session-arrow {
+    color: var(--violet);
+    opacity: 0.6;
+    font-size: 1.2rem;
+    transition: transform 0.3s;
+  }
+
+  .session-item:hover .session-arrow { transform: translateX(5px); }
+
+  /* ===================== SEÇÃO: CHAKRAS 3D ===================== */
+  #chakras {
+    background: linear-gradient(135deg, #0D0A1A 0%, var(--midnight) 100%);
+    padding: 6rem 4rem;
+    flex-direction: column;
+  }
+
+  .chakras-header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 4rem;
+  }
+
+  .chakra-spine {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-width: 900px;
+    width: 100%;
+  }
+
+  .chakra-item {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    padding: 1.5rem 2rem;
+    border-radius: 1rem;
+    transition: all 0.3s;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .chakra-item:hover {
+    background: rgba(255,255,255,0.03);
+  }
+
+  .chakra-item::after {
+    content: '';
+    position: absolute;
+    left: 3.2rem;
+    bottom: -20px;
+    width: 2px;
+    height: 20px;
+    background: linear-gradient(to bottom, var(--chakra-color, var(--gold)), transparent);
+    opacity: 0.3;
+  }
+
+  .chakra-item:last-child::after { display: none; }
+
+  .chakra-orb {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, white, var(--chakra-color, gold));
+    box-shadow: 0 0 25px var(--chakra-color, gold), inset 0 0 15px rgba(255,255,255,0.1);
+    flex-shrink: 0;
+    animation: chakraGlow 3s ease-in-out infinite;
+    position: relative;
+  }
+
+  @keyframes chakraGlow {
+    0%, 100% { box-shadow: 0 0 20px var(--chakra-color, gold); transform: scale(1); }
+    50% { box-shadow: 0 0 40px var(--chakra-color, gold), 0 0 60px rgba(255,255,255,0.1); transform: scale(1.05); }
+  }
+
+  .chakra-info { flex: 1; }
+
+  .chakra-name {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--chakra-color, gold);
+    margin-bottom: 0.2rem;
+  }
+
+  .chakra-sanskrit {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.8rem;
+    color: var(--fog);
+    opacity: 0.4;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.1em;
+  }
+
+  .chakra-desc {
+    font-size: 0.85rem;
+    color: var(--fog);
+    opacity: 0.55;
+    line-height: 1.6;
+    max-width: 400px;
+  }
+
+  .chakra-freq {
+    font-family: 'Cinzel', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--chakra-color, gold);
+    opacity: 0.7;
+    text-align: right;
+  }
+
+  .chakra-freq small {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    font-weight: 400;
+  }
+
+  /* ===================== SEÇÃO: GALERIA / ESTILOS ===================== */
+  #estilos {
+    background: var(--indigo);
+    padding: 6rem 4rem;
+    flex-direction: column;
+  }
+
+  .estilos-header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 4rem;
+  }
+
+  .estilos-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    max-width: 1200px;
+    width: 100%;
+  }
+
+  .estilo-card {
+    border-radius: 1.5rem;
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 3/4;
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+
+  .estilo-card:hover { transform: scale(1.02); }
+
+  .estilo-card:nth-child(1) { grid-row: span 2; aspect-ratio: auto; }
+
+  .estilo-bg {
+    position: absolute;
+    inset: 0;
+    transition: transform 0.5s;
+  }
+
+  .estilo-card:hover .estilo-bg { transform: scale(1.05); }
+
+  .ec1 .estilo-bg { background: linear-gradient(135deg, #1a2a3a, #2d4a3e); }
+  .ec2 .estilo-bg { background: linear-gradient(135deg, #2a1a3a, #3a2a5a); }
+  .ec3 .estilo-bg { background: linear-gradient(135deg, #3a2a1a, #4a3a2a); }
+  .ec4 .estilo-bg { background: linear-gradient(135deg, #1a3a2a, #2a4a3a); }
+  .ec5 .estilo-bg { background: linear-gradient(135deg, #3a1a2a, #5a2a3a); }
+
+  .estilo-visual {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(3rem, 5vw, 6rem);
+    opacity: 0.4;
+    transition: opacity 0.3s;
+  }
+
+  .estilo-card:hover .estilo-visual { opacity: 0.7; }
+
+  .estilo-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10,15,30,0.95) 0%, transparent 60%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.8rem;
+  }
+
+  .estilo-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.8;
+    margin-bottom: 0.4rem;
+  }
+
+  .estilo-name {
+    font-family: 'Cinzel', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--fog);
+    margin-bottom: 0.3rem;
+  }
+
+  .estilo-desc {
+    font-size: 0.8rem;
+    color: var(--fog);
+    opacity: 0.5;
+    line-height: 1.5;
+  }
+
+  /* ===================== SEÇÃO: PROGRAMA ===================== */
+  #programa {
+    background: var(--midnight);
+    padding: 6rem 4rem;
+    flex-direction: column;
+  }
+
+  .programa-header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 5rem;
+  }
+
+  .programa-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1100px;
+    width: 100%;
+  }
+
+  .programa-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 1.5rem;
+    padding: 2.5rem;
+    position: relative;
+    transition: all 0.3s;
+    overflow: hidden;
+  }
+
+  .programa-card.featured {
+    background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(74,63,122,0.08));
+    border-color: rgba(201,168,76,0.25);
+  }
+
+  .featured-badge {
+    position: absolute;
+    top: 1.5rem; right: 1.5rem;
+    background: var(--gold);
+    color: var(--midnight);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
+    border-radius: 2rem;
+  }
+
+  .programa-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(201,168,76,0.2);
+    background: rgba(201,168,76,0.04);
+  }
+
+  .programa-card.featured:hover {
+    border-color: rgba(201,168,76,0.5);
+  }
+
+  .program-icon { font-size: 2.5rem; margin-bottom: 1.5rem; display: block; }
+
+  .program-name {
+    font-family: 'Cinzel', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--fog);
+    margin-bottom: 0.5rem;
+  }
+
+  .program-price {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .program-price span {
+    font-size: 1rem;
+    font-weight: 400;
+    opacity: 0.6;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .program-period {
+    font-size: 0.75rem;
+    color: var(--fog);
+    opacity: 0.4;
+    margin-bottom: 2rem;
+    letter-spacing: 0.1em;
+  }
+
+  .program-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-bottom: 2rem;
+  }
+
+  .program-features li {
+    display: flex;
+    gap: 0.8rem;
+    font-size: 0.85rem;
+    color: var(--fog);
+    opacity: 0.7;
+    align-items: flex-start;
+  }
+
+  .program-features li::before {
+    content: '✦';
+    color: var(--gold);
+    font-size: 0.6rem;
+    margin-top: 0.2rem;
+    flex-shrink: 0;
+    opacity: 0.7;
+  }
+
+  .program-btn {
+    display: block;
+    text-align: center;
+    padding: 0.9rem;
+    border-radius: 2rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s;
+    border: 1px solid rgba(201,168,76,0.3);
+    color: var(--gold);
+  }
+
+  .programa-card.featured .program-btn {
+    background: var(--gold);
+    color: var(--midnight);
+    border-color: var(--gold);
+  }
+
+  .program-btn:hover {
+    background: var(--gold);
+    color: var(--midnight);
+  }
+
+  /* ===================== FOOTER ===================== */
+  footer {
+    background: var(--indigo);
+    padding: 5rem 4rem 3rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 4rem;
+    margin-bottom: 4rem;
+  }
+
+  .footer-brand .logo {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .footer-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--fog);
+    opacity: 0.4;
+    line-height: 1.7;
+    max-width: 250px;
+    margin-bottom: 2rem;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .social-link {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--fog);
+    text-decoration: none;
+    opacity: 0.4;
+    transition: all 0.3s;
+    font-size: 1rem;
+  }
+
+  .social-link:hover {
+    opacity: 1;
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  .footer-col h4 {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    opacity: 0.8;
+  }
+
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
+
+  .footer-col a {
+    color: var(--fog);
+    text-decoration: none;
+    font-size: 0.85rem;
+    opacity: 0.4;
+    transition: opacity 0.3s, color 0.3s;
+  }
+
+  .footer-col a:hover { opacity: 0.9; color: var(--gold); }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .footer-copy {
+    font-size: 0.75rem;
+    color: var(--fog);
+    opacity: 0.25;
+    letter-spacing: 0.05em;
+  }
+
+  /* ===================== REVEAL ANIMATIONS ===================== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+  .reveal-delay-5 { transition-delay: 0.5s; }
+
+  /* ===================== RESPONSIVO ===================== */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    nav ul { display: none; }
+    .side-nav { display: none; }
+    #yoga { padding: 5rem 1.5rem; }
+    .yoga-grid { grid-template-columns: 1fr; }
+    .meditation-layout { grid-template-columns: 1fr; padding: 0 1.5rem; gap: 3rem; }
+    .mandala-container { width: 280px; height: 280px; }
+    #chakras { padding: 5rem 1.5rem; }
+    .chakra-item { flex-direction: column; gap: 1rem; }
+    .estilos-grid { grid-template-columns: 1fr 1fr; }
+    .estilo-card:nth-child(1) { grid-row: span 1; }
+    #estilos { padding: 5rem 1.5rem; }
+    .programa-grid { grid-template-columns: 1fr; }
+    #programa { padding: 5rem 1.5rem; }
+    footer { padding: 3rem 1.5rem 2rem; }
+    .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+    body { cursor: auto; }
+    .cursor, .cursor-ring { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="#hero" class="logo">ZENN</a>
+  <ul>
+    <li><a href="#yoga">Yoga</a></li>
+    <li><a href="#respiracao">Respiração</a></li>
+    <li><a href="#meditacao">Meditação</a></li>
+    <li><a href="#chakras">Chakras</a></li>
+    <li><a href="#estilos">Estilos</a></li>
+    <li><a href="#programa" class="nav-cta">Começar</a></li>
+  </ul>
+</nav>
+
+<!-- NAVEGAÇÃO LATERAL -->
+<div class="side-nav" id="sideNav">
+  <div class="side-dot active" data-section="hero" data-label="Início" onclick="scrollTo('#hero')"></div>
+  <div class="side-dot" data-section="yoga" data-label="Yoga" onclick="scrollTo('#yoga')"></div>
+  <div class="side-dot" data-section="respiracao" data-label="Respiração" onclick="scrollTo('#respiracao')"></div>
+  <div class="side-dot" data-section="meditacao" data-label="Meditação" onclick="scrollTo('#meditacao')"></div>
+  <div class="side-dot" data-section="chakras" data-label="Chakras" onclick="scrollTo('#chakras')"></div>
+  <div class="side-dot" data-section="estilos" data-label="Estilos" onclick="scrollTo('#estilos')"></div>
+  <div class="side-dot" data-section="programa" data-label="Programa" onclick="scrollTo('#programa')"></div>
+</div>
+
+<!-- ===== HERO ===== -->
+<section id="hero">
+  <div class="hero-3d-bg">
+    <div class="chain-container">
+      <div class="chain-ring ring-1"></div>
+      <div class="chain-ring ring-2"></div>
+      <div class="chain-ring ring-3"></div>
+      <div class="chain-ring ring-4"></div>
+      <div class="chain-ring ring-5"></div>
+      <div class="chain-ring ring-6"></div>
+    </div>
+    <div class="particles" id="particles"></div>
+  </div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Yoga · Respiração · Meditação · Chakras</p>
+    <h1 class="hero-title">
+      <span class="accent">ZENN</span><br>
+      <span class="light">Bem-estar</span>
+    </h1>
+    <p class="hero-sub">
+      Uma jornada completa pelo seu corpo, mente e espírito — 
+      práticas ancestrais com uma experiência visual imersiva e tridimensional.
+    </p>
+    <div class="hero-actions">
+      <a href="#yoga" class="btn-primary">Explorar Práticas</a>
+      <a href="#respiracao" class="btn-outline">Respiração Guiada</a>
+    </div>
+  </div>
+
+  <div class="scroll-indicator" onclick="document.querySelector('#yoga').scrollIntoView({behavior:'smooth'})">
+    <span>Descer</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ===== YOGA ===== -->
+<section id="yoga">
+  <div class="section-inner">
+    <p class="section-label reveal">Prática Física</p>
+    <h2 class="section-title reveal reveal-delay-1">Posturas & <br>Asanas Sagrados</h2>
+    <p class="section-desc reveal reveal-delay-2">
+      Cada postura é uma conversa silenciosa entre o corpo e o cosmo. 
+      Explore, respire, transforme.
+    </p>
+
+    <div class="yoga-grid">
+      <div class="pose-card reveal reveal-delay-1">
+        <span class="pose-icon">🧘</span>
+        <div class="pose-name">Lótus</div>
+        <div class="pose-sanskrit">Padmasana</div>
+        <p class="pose-desc">A postura raiz de toda meditação. Aquieta a mente e abre o coração para o silêncio interior.</p>
+        <div class="pose-difficulty">
+          <div class="diff-dot filled"></div><div class="diff-dot filled"></div>
+          <div class="diff-dot"></div><div class="diff-dot"></div><div class="diff-dot"></div>
+        </div>
+      </div>
+
+      <div class="pose-card reveal reveal-delay-2">
+        <span class="pose-icon">🌿</span>
+        <div class="pose-name">Árvore</div>
+        <div class="pose-sanskrit">Vrksasana</div>
+        <p class="pose-desc">Enraíze-se como um carvalho. O equilíbrio físico espelha o equilíbrio interno que buscamos.</p>
+        <div class="pose-difficulty">
+          <div class="diff-dot filled"></div><div class="diff-dot filled"></div>
+          <div class="diff-dot filled"></div><div class="diff-dot"></div><div class="diff-dot"></div>
+        </div>
+      </div>
+
+      <div class="pose-card reveal reveal-delay-3">
+        <span class="pose-icon">🌙</span>
+        <div class="pose-name">Lua Crescente</div>
+        <div class="pose-sanskrit">Anjaneyasana</div>
+        <p class="pose-desc">Abertura profunda do quadril e peito. Libera tensões guardadas há meses, às vezes anos.</p>
+        <div class="pose-difficulty">
+          <div class="diff-dot filled"></div><div class="diff-dot"></div>
+          <div class="diff-dot"></div><div class="diff-dot"></div><div class="diff-dot"></div>
+        </div>
+      </div>
+
+      <div class="pose-card reveal reveal-delay-2">
+        <span class="pose-icon">⚡</span>
+        <div class="pose-name">Guerreiro I</div>
+        <div class="pose-sanskrit">Virabhadrasana I</div>
+        <p class="pose-desc">Força, determinação, coragem. O guerreiro dentro de você que nunca desiste da jornada.</p>
+        <div class="pose-difficulty">
+          <div class="diff-dot filled"></div><div class="diff-dot filled"></div>
+          <div class="diff-dot filled"></div><div class="diff-dot"></div><div class="diff-dot"></div>
+        </div>
+      </div>
+
+      <div class="pose-card reveal reveal-delay-3">
+        <span class="pose-icon">🦋</span>
+        <div class="pose-name">Borboleta</div>
+        <div class="pose-sanskrit">Baddha Konasana</div>
+        <p class="pose-desc">A transformação começa quando paramos de resistir. Abra as asas do seu quadril com gentileza.</p>
+        <div class="pose-difficulty">
+          <div class="diff-dot filled"></div><div class="diff-dot"></div>
+          <div class="diff-dot"></div><div class="diff-dot"></div><div class="diff-dot"></div>
+        </div>
+      </div>
+
+      <div class="pose-card reveal reveal-delay-4">
+        <span class="pose-icon">🔥</span>
+        <div class="pose-name">Cão Olhando</div>
+        <div class="pose-sanskrit">Urdhva Mukha Svanasana</div>
+        <p class="pose-desc">Abertura do peito em direção ao céu. Desperta a energia solar adormecida no centro do seu ser.</p>
+        <div class="pose-difficulty">
+          <div class="diff-dot filled"></div><div class="diff-dot filled"></div>
+          <div class="diff-dot"></div><div class="diff-dot"></div><div class="diff-dot"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RESPIRAÇÃO ===== -->
+<section id="respiracao">
+  <div class="breath-scene">
+    <div class="breath-orb"></div>
+    <div class="breath-ring br1"></div>
+    <div class="breath-ring br2"></div>
+    <div class="breath-ring br3"></div>
+    <div class="breath-ring br4"></div>
+  </div>
+
+  <div class="breath-content">
+    <p class="section-label reveal" style="text-align:center; color: var(--sage);">Pranayama</p>
+    <h2 class="section-title reveal reveal-delay-1" style="text-align:center;">A Arte da<br>Respiração Sagrada</h2>
+
+    <div class="breath-timer-area reveal reveal-delay-2">
+      <div class="live-counter" id="liveCounter">4</div>
+      <div class="live-phase" id="livePhase">Inspire profundamente</div>
+      <br>
+      <button class="breath-start-btn" id="breathBtn" onclick="toggleBreath()">
+        Iniciar Exercício
+      </button>
+    </div>
+
+    <div class="breath-techniques reveal reveal-delay-3">
+      <div class="technique-card" onclick="setTechnique('478')">
+        <span class="technique-icon">🌬️</span>
+        <div class="technique-name">4-7-8</div>
+        <div class="technique-rhythm">4s · 7s · 8s</div>
+        <p class="technique-desc">Técnica do Dr. Weil para ansiedade e insônia. Ativa o sistema parassimpático.</p>
+      </div>
+
+      <div class="technique-card" onclick="setTechnique('box')">
+        <span class="technique-icon">⬜</span>
+        <div class="technique-name">Respiração em Caixa</div>
+        <div class="technique-rhythm">4s · 4s · 4s · 4s</div>
+        <p class="technique-desc">Usada por militares e atletas de elite para foco máximo e controle do estresse.</p>
+      </div>
+
+      <div class="technique-card" onclick="setTechnique('wim')">
+        <span class="technique-icon">❄️</span>
+        <div class="technique-name">Método Wim Hof</div>
+        <div class="technique-rhythm">30x · Retenção · Recuperação</div>
+        <p class="technique-desc">Respiração intensa seguida de retenção. Eleva energia e temperatura corporal.</p>
+      </div>
+
+      <div class="technique-card" onclick="setTechnique('alternate')">
+        <span class="technique-icon">☯️</span>
+        <div class="technique-name">Nadi Shodhana</div>
+        <div class="technique-rhythm">Alternada · 4s · 4s</div>
+        <p class="technique-desc">Equilibra os dois hemisférios do cérebro. Prática yóguica milenar de purificação.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MEDITAÇÃO ===== -->
+<section id="meditacao">
+  <div class="meditation-layout">
+    <div class="mandala-container reveal">
+      <div class="mandala-ring mr6"></div>
+      <div class="mandala-ring mr5"></div>
+      <div class="mandala-ring mr4"></div>
+      <div class="mandala-ring mr3"></div>
+      <div class="mandala-ring mr2"></div>
+      <div class="mandala-ring mr1"></div>
+      <div class="mandala-center"></div>
+    </div>
+
+    <div class="meditation-text">
+      <p class="section-label reveal">Meditação Guiada</p>
+      <h2 class="section-title reveal reveal-delay-1">Silêncio que<br>Transforma</h2>
+      <p class="section-desc reveal reveal-delay-2">
+        O barulho do mundo é ensurdecedor. Aqui você encontra sessões guiadas 
+        para cada momento da sua jornada interior.
+      </p>
+
+      <div class="session-list reveal reveal-delay-3">
+        <a href="#" class="session-item">
+          <div class="session-duration">5'</div>
+          <div class="session-info">
+            <div class="session-name">Pausa Consciente</div>
+            <div class="session-type">Mindfulness · Iniciante</div>
+          </div>
+          <div class="session-arrow">→</div>
+        </a>
+
+        <a href="#" class="session-item">
+          <div class="session-duration">10'</div>
+          <div class="session-info">
+            <div class="session-name">Escaneamento Corporal</div>
+            <div class="session-type">Body Scan · Relaxamento</div>
+          </div>
+          <div class="session-arrow">→</div>
+        </a>
+
+        <a href="#" class="session-item">
+          <div class="session-duration">20'</div>
+          <div class="session-info">
+            <div class="session-name">Vipassana Simples</div>
+            <div class="session-type">Meditação Profunda · Intermediário</div>
+          </div>
+          <div class="session-arrow">→</div>
+        </a>
+
+        <a href="#" class="session-item">
+          <div class="session-duration">40'</div>
+          <div class="session-info">
+            <div class="session-name">Jornada dos Chakras</div>
+            <div class="session-type">Energia · Avançado</div>
+          </div>
+          <div class="session-arrow">→</div>
+        </a>
+
+        <a href="#" class="session-item">
+          <div class="session-duration">∞</div>
+          <div class="session-info">
+            <div class="session-name">Expansão Livre</div>
+            <div class="session-type">Meditação Aberta · Som Binural</div>
+          </div>
+          <div class="session-arrow">→</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CHAKRAS ===== -->
+<section id="chakras">
+  <div class="chakras-header">
+    <p class="section-label reveal">Sistema Energético</p>
+    <h2 class="section-title reveal reveal-delay-1">Os 7 Chakras</h2>
+    <p class="section-desc reveal reveal-delay-2" style="max-width:100%; text-align:center;">
+      Centros de energia que atravessam a espinha dorsal. 
+      Cada um governa aspectos distintos da sua existência.
+    </p>
+  </div>
+
+  <div class="chakra-spine">
+    <div class="chakra-item reveal" style="--chakra-color: #C0392B;">
+      <div class="chakra-orb" style="--chakra-color: #C0392B;"></div>
+      <div class="chakra-info">
+        <div class="chakra-name">Muladhara · Raiz</div>
+        <div class="chakra-sanskrit">1º Chakra · Base da Espinha</div>
+        <p class="chakra-desc">Segurança, sobrevivência, enraizamento. A fundação sobre a qual toda a sua vida é construída. Quando ativo, você sente estabilidade e presença.</p>
+      </div>
+      <div class="chakra-freq">396<small>Hz</small></div>
+    </div>
+
+    <div class="chakra-item reveal reveal-delay-1" style="--chakra-color: #E67E22;">
+      <div class="chakra-orb" style="--chakra-color: #E67E22;"></div>
+      <div class="chakra-info">
+        <div class="chakra-name">Svadhisthana · Sacral</div>
+        <div class="chakra-sanskrit">2º Chakra · Abaixo do Umbigo</div>
+        <p class="chakra-desc">Criatividade, prazer, emoções, sexualidade. O centro da sua força criativa e da capacidade de sentir alegria genuína.</p>
+      </div>
+      <div class="chakra-freq">417<small>Hz</small></div>
+    </div>
+
+    <div class="chakra-item reveal reveal-delay-2" style="--chakra-color: #F1C40F;">
+      <div class="chakra-orb" style="--chakra-color: #F1C40F;"></div>
+      <div class="chakra-info">
+        <div class="chakra-name">Manipura · Plexo Solar</div>
+        <div class="chakra-sanskrit">3º Chakra · Diafragma</div>
+        <p class="chakra-desc">Força de vontade, autoestima, poder pessoal. O sol interno que irradia confiança e determinação para alcançar seus objetivos.</p>
+      </div>
+      <div class="chakra-freq">528<small>Hz</small></div>
+    </div>
+
+    <div class="chakra-item reveal reveal-delay-3" style="--chakra-color: #27AE60;">
+      <div class="chakra-orb" style="--chakra-color: #27AE60;"></div>
+      <div class="chakra-info">
+        <div class="chakra-name">Anahata · Coração</div>
+        <div class="chakra-sanskrit">4º Chakra · Centro do Peito</div>
+        <p class="chakra-desc">Amor incondicional, compaixão, cura. A ponte entre os chakras inferiores (matéria) e superiores (espírito). O centro de tudo.</p>
+      </div>
+      <div class="chakra-freq">639<small>Hz</small></div>
+    </div>
+
+    <div class="chakra-item reveal reveal-delay-4" style="--chakra-color: #3498DB;">
+      <div class="chakra-orb" style="--chakra-color: #3498DB;"></div>
+      <div class="chakra-info">
+        <div class="chakra-name">Vishuddha · Garganta</div>
+        <div class="chakra-sanskrit">5º Chakra · Laringe</div>
+        <p class="chakra-desc">Comunicação, expressão, verdade. A capacidade de dizer o que sente com autenticidade e de ouvir com atenção plena.</p>
+      </div>
+      <div class="chakra-freq">741<small>Hz</small></div>
+    </div>
+
+    <div class="chakra-item reveal reveal-delay-5" style="--chakra-color: #8E44AD;">
+      <div class="chakra-orb" style="--chakra-color: #8E44AD;"></div>
+      <div class="chakra-info">
+        <div class="chakra-name">Ajna · Terceiro Olho</div>
+        <div class="chakra-sanskrit">6º Chakra · Entre os Olhos</div>
+        <p class="chakra-desc">Intuição, percepção, sabedoria. O olho que vê além das aparências e percebe a realidade como ela realmente é.</p>
+      </div>
+      <div class="chakra-freq">852<small>Hz</small></div>
+    </div>
+
+    <div class="chakra-item reveal" style="--chakra-color: #9B59B6;">
+      <div class="chakra-orb" style="--chakra-color: #DDA0DD; background: radial-gradient(circle at 35% 35%, white, #DDA0DD);"></div>
+      <div class="chakra-info">
+        <div class="chakra-name">Sahasrara · Coroa</div>
+        <div class="chakra-sanskrit">7º Chakra · Topo da Cabeça</div>
+        <p class="chakra-desc">Conexão com o divino, iluminação, consciência pura. O portal para a experiência de unidade com tudo que existe.</p>
+      </div>
+      <div class="chakra-freq">963<small>Hz</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ESTILOS ===== -->
+<section id="estilos">
+  <div class="estilos-header">
+    <p class="section-label reveal">Modalidades</p>
+    <h2 class="section-title reveal reveal-delay-1">Encontre Seu<br>Caminho</h2>
+    <p class="section-desc reveal reveal-delay-2" style="max-width:100%; text-align:center;">
+      Cada estilo de yoga é um portal único. Qual ressoa com o seu momento?
+    </p>
+  </div>
+
+  <div class="estilos-grid reveal">
+    <div class="estilo-card ec1">
+      <div class="estilo-bg"></div>
+      <div class="estilo-visual">🌊</div>
+      <div class="estilo-overlay">
+        <div class="estilo-tag">Fluxo</div>
+        <div class="estilo-name">Vinyasa Flow</div>
+        <p class="estilo-desc">Movimento e respiração sincronizados. Uma dança meditativa em constante transformação que acalma e fortalece simultaneamente.</p>
+      </div>
+    </div>
+
+    <div class="estilo-card ec2">
+      <div class="estilo-bg"></div>
+      <div class="estilo-visual">🔥</div>
+      <div class="estilo-overlay">
+        <div class="estilo-tag">Força</div>
+        <div class="estilo-name">Ashtanga</div>
+        <p class="estilo-desc">Sequência clássica de intensidade crescente. Para quem busca disciplina e transformação radical.</p>
+      </div>
+    </div>
+
+    <div class="estilo-card ec3">
+      <div class="estilo-bg"></div>
+      <div class="estilo-visual">☮️</div>
+      <div class="estilo-overlay">
+        <div class="estilo-tag">Restaurativo</div>
+        <div class="estilo-name">Yin Yoga</div>
+        <p class="estilo-desc">Posturas passivas mantidas por minutos. Trabalha os tecidos profundos e libera traumas guardados.</p>
+      </div>
+    </div>
+
+    <div class="estilo-card ec4">
+      <div class="estilo-bg"></div>
+      <div class="estilo-visual">✨</div>
+      <div class="estilo-overlay">
+        <div class="estilo-tag">Suave</div>
+        <div class="estilo-name">Hatha Clássico</div>
+        <p class="estilo-desc">A raiz de tudo. Posturas estáticas com atenção ao alinhamento e à respiração consciente.</p>
+      </div>
+    </div>
+
+    <div class="estilo-card ec5">
+      <div class="estilo-bg"></div>
+      <div class="estilo-visual">🌙</div>
+      <div class="estilo-overlay">
+        <div class="estilo-tag">Noturno</div>
+        <div class="estilo-name">Yoga Nidra</div>
+        <p class="estilo-desc">O sono yóguico. Uma hora equivale a quatro horas de sono profundo. Restauração total do sistema nervoso.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROGRAMA ===== -->
+<section id="programa">
+  <div class="programa-header">
+    <p class="section-label reveal">Programas</p>
+    <h2 class="section-title reveal reveal-delay-1">Escolha Sua<br>Jornada</h2>
+    <p class="section-desc reveal reveal-delay-2" style="max-width:100%; text-align:center;">
+      Cada plano foi desenhado para um momento específico da sua caminhada espiritual.
+    </p>
+  </div>
+
+  <div class="programa-grid">
+    <div class="programa-card reveal reveal-delay-1">
+      <span class="program-icon">🌱</span>
+      <div class="program-name">Semente</div>
+      <div class="program-price">Grátis<span></span></div>
+      <div class="program-period">Para sempre</div>
+      <ul class="program-features">
+        <li>5 posturas de yoga básicas</li>
+        <li>Respiração 4-7-8 guiada</li>
+        <li>Meditação de 5 minutos</li>
+        <li>Introdução aos chakras</li>
+        <li>Comunidade de bem-estar</li>
+      </ul>
+      <a href="#" class="program-btn">Começar Grátis</a>
+    </div>
+
+    <div class="programa-card featured reveal reveal-delay-2">
+      <div class="featured-badge">Mais Popular</div>
+      <span class="program-icon">🌸</span>
+      <div class="program-name">Florescer</div>
+      <div class="program-price">R$47<span>/mês</span></div>
+      <div class="program-period">Cancele a qualquer momento</div>
+      <ul class="program-features">
+        <li>Mais de 80 posturas completas</li>
+        <li>Todas as técnicas de respiração</li>
+        <li>Meditações de 5 a 60 minutos</li>
+        <li>Jornada completa dos 7 chakras</li>
+        <li>Sons binaurais exclusivos</li>
+        <li>Todos os estilos de yoga</li>
+        <li>Suporte de professores</li>
+      </ul>
+      <a href="#" class="program-btn">Assinar Agora</a>
+    </div>
+
+    <div class="programa-card reveal reveal-delay-3">
+      <span class="program-icon">🌟</span>
+      <div class="program-name">Mestre</div>
+      <div class="program-price">R$197<span>/trimestre</span></div>
+      <div class="program-period">Economia de 40%</div>
+      <ul class="program-features">
+        <li>Tudo do Plano Florescer</li>
+        <li>Retiro virtual mensal ao vivo</li>
+        <li>1:1 com professor certificado</li>
+        <li>Programa de formação yoga</li>
+        <li>Biblioteca de retiros gravados</li>
+        <li>Certificado de conclusão</li>
+        <li>Acesso vitalício ao conteúdo</li>
+      </ul>
+      <a href="#" class="program-btn">Jornada Completa</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="#hero" class="logo">ZENN</a>
+      <p class="footer-tagline">
+        Onde a tradição milenar encontra 
+        a experiência visual do amanhã.
+      </p>
+      <div class="social-links">
+        <a href="#" class="social-link">✦</a>
+        <a href="#" class="social-link">◎</a>
+        <a href="#" class="social-link">▷</a>
+        <a href="#" class="social-link">◈</a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>Praticar</h4>
+      <ul>
+        <li><a href="#yoga">Yoga</a></li>
+        <li><a href="#respiracao">Respiração</a></li>
+        <li><a href="#meditacao">Meditação</a></li>
+        <li><a href="#chakras">Chakras</a></li>
+        <li><a href="#estilos">Estilos</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Aprender</h4>
+      <ul>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Filosofia</a></li>
+        <li><a href="#">Anatomia</a></li>
+        <li><a href="#">Ayurveda</a></li>
+        <li><a href="#">Glossário</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Suporte</h4>
+      <ul>
+        <li><a href="#">Sobre Nós</a></li>
+        <li><a href="#">Professores</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Contato</a></li>
+        <li><a href="#">Privacidade</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 ZENN. Feito com 🤍 e muita respiração consciente.</p>
+    <p class="footer-copy">Namaste · नमस्ते</p>
+  </div>
+</footer>
+
+<script>
+// ===== CURSOR PERSONALIZADO =====
+const cursor = document.getElementById('cursor');
+const cursorRing = document.getElementById('cursorRing');
+let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+
+document.addEventListener('mousemove', e => {
+  mouseX = e.clientX; mouseY = e.clientY;
+  cursor.style.transform = `translate(${mouseX - 6}px, ${mouseY - 6}px)`;
+});
+
+function animateRing() {
+  ringX += (mouseX - ringX - 20) * 0.12;
+  ringY += (mouseY - ringY - 20) * 0.12;
+  cursorRing.style.transform = `translate(${ringX}px, ${ringY}px)`;
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+document.querySelectorAll('a, button, .pose-card, .technique-card, .session-item, .estilo-card').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.style.transform += ' scale(2)';
+    cursorRing.style.width = '60px';
+    cursorRing.style.height = '60px';
+    cursorRing.style.opacity = '1';
+  });
+  el.addEventListener('mouseleave', () => {
+    cursorRing.style.width = '40px';
+    cursorRing.style.height = '40px';
+    cursorRing.style.opacity = '0.6';
+  });
+});
+
+// ===== PARTÍCULAS =====
+function createParticles() {
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 40; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.cssText = `
+      left: ${Math.random() * 100}%;
+      animation-duration: ${8 + Math.random() * 12}s;
+      animation-delay: ${Math.random() * 12}s;
+      width: ${1 + Math.random() * 2}px;
+      height: ${1 + Math.random() * 2}px;
+      opacity: ${0.2 + Math.random() * 0.5};
+    `;
+    container.appendChild(p);
+  }
+}
+createParticles();
+
+// ===== NAVEGAÇÃO LATERAL =====
+function scrollTo(selector) {
+  document.querySelector(selector)?.scrollIntoView({ behavior: 'smooth' });
+}
+
+const sections = ['hero','yoga','respiracao','meditacao','chakras','estilos','programa'];
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      document.querySelectorAll('.side-dot').forEach(d => d.classList.remove('active'));
+      const dot = document.querySelector(`.side-dot[data-section="${entry.target.id}"]`);
+      if (dot) dot.classList.add('active');
+    }
+  });
+}, { threshold: 0.5 });
+
+sections.forEach(id => {
+  const el = document.getElementById(id);
+  if (el) observer.observe(el);
+});
+
+// ===== REVEAL ON SCROLL =====
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// ===== RESPIRAÇÃO INTERATIVA =====
+let breathInterval = null;
+let breathRunning = false;
+let currentTech = '478';
+
+const techniques = {
+  '478': [
+    { phase: 'Inspire profundamente', duration: 4 },
+    { phase: 'Segure o ar', duration: 7 },
+    { phase: 'Expire lentamente', duration: 8 }
+  ],
+  'box': [
+    { phase: 'Inspire', duration: 4 },
+    { phase: 'Segure inspirado', duration: 4 },
+    { phase: 'Expire', duration: 4 },
+    { phase: 'Segure expirado', duration: 4 }
+  ],
+  'wim': [
+    { phase: 'Respire fundo (30x)', duration: 2 },
+    { phase: 'Retenha o ar', duration: 15 },
+    { phase: 'Recuperação', duration: 15 }
+  ],
+  'alternate': [
+    { phase: 'Inspire pela esquerda', duration: 4 },
+    { phase: 'Segure', duration: 4 },
+    { phase: 'Expire pela direita', duration: 4 },
+    { phase: 'Segure', duration: 4 }
+  ]
+};
+
+function setTechnique(tech) {
+  currentTech = tech;
+  if (breathRunning) {
+    stopBreath();
+    setTimeout(() => startBreath(), 300);
+  }
+  document.querySelectorAll('.technique-card').forEach((c, i) => {
+    c.style.borderColor = '';
+  });
+}
+
+function toggleBreath() {
+  if (breathRunning) stopBreath();
+  else startBreath();
+}
+
+function startBreath() {
+  breathRunning = true;
+  const btn = document.getElementById('breathBtn');
+  btn.textContent = 'Parar';
+  btn.classList.add('active');
+
+  const steps = techniques[currentTech];
+  let stepIdx = 0, count = 0;
+
+  function nextStep() {
+    const step = steps[stepIdx];
+    document.getElementById('livePhase').textContent = step.phase;
+    count = step.duration;
+    document.getElementById('liveCounter').textContent = count;
+
+    const orb = document.querySelector('.breath-orb');
+    if (step.phase.includes('Inspire') || step.phase.includes('fundo')) {
+      orb.style.animation = `breathOrb ${step.duration}s ease-in-out forwards`;
+      orb.style.transform = 'scale(1.4)';
+    } else if (step.phase.includes('Expire')) {
+      orb.style.transform = 'scale(1)';
+    }
+  }
+
+  nextStep();
+
+  breathInterval = setInterval(() => {
+    if (!breathRunning) return;
+    count--;
+    document.getElementById('liveCounter').textContent = count > 0 ? count : '';
+
+    if (count <= 0) {
+      stepIdx = (stepIdx + 1) % steps.length;
+      nextStep();
+    }
+  }, 1000);
+}
+
+function stopBreath() {
+  breathRunning = false;
+  clearInterval(breathInterval);
+  const btn = document.getElementById('breathBtn');
+  btn.textContent = 'Iniciar Exercício';
+  btn.classList.remove('active');
+  document.getElementById('liveCounter').textContent = '4';
+  document.getElementById('livePhase').textContent = 'Inspire profundamente';
+  const orb = document.querySelector('.breath-orb');
+  orb.style.transform = '';
+  orb.style.animation = 'breathOrb 4s ease-in-out infinite';
+}
+</script>
+</body>
+</html>
