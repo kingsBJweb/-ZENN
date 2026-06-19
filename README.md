@@ -1,30 +1,42 @@
-# -ZENN - Plataforma de Meditação
+# 🧘 ZENN - Plataforma de Meditação
 
-O ZENN é um protótipo desenvolvido em HTML que simula o site de uma empresa de meditação e bem-estar. O objetivo é apresentar técnicas de meditação, informações sobre chakras e incentivar hábitos saudáveis para redução do estresse.
+O **ZENN** é um projeto desenvolvido para simular o site de uma empresa de meditação e bem-estar. A plataforma apresenta conteúdos sobre os chakras, práticas de mindfulness e hábitos que contribuem para uma vida mais equilibrada.
 
-Tecnologias Utilizadas
+## 🌐 Visualizar Projeto
 
-HTML5
-CSS3
-JavaScript
+🔗 **Acesse o site:** https://kingsbjweb.github.io/-ZENN/#chakras
 
-Funcionalidades
+## 📖 Sobre o Projeto
 
-Informações sobre os 7 chakras
-Interface responsiva
-Navegação simples e intuitiva
-Conteúdo educativo sobre meditação
-Resultados Simulados
+O objetivo do ZENN é oferecer uma experiência visual agradável e educativa sobre meditação, equilíbrio energético e desenvolvimento pessoal.
 
-Após 30 dias de uso da plataforma ZENN, usuários apresentaram:
+## 🚀 Tecnologias Utilizadas
 
-Indicador	Antes	Depois
-Nível médio de estresse	78%	42%
-Qualidade do sono	55%	81%
-Concentração	48%	76%
-Bem-estar geral	50%	88%
+- HTML5
+- CSS3
+- JavaScript
 
-Crescimento de Usuários ativos
+## ✨ Funcionalidades
+
+- Informações sobre os 7 chakras
+- Interface responsiva
+- Navegação intuitiva
+- Conteúdo educativo sobre meditação
+- Design focado em bem-estar e relaxamento
+
+## 📊 Resultados 
+
+| Indicador | Antes | Depois |
+|-----------|--------|---------|
+| Nível médio de estresse | 78% | 42% |
+| Qualidade do sono | 55% | 81% |
+| Concentração | 48% | 76% |
+| Bem-estar geral | 50% | 88% |
+
+### 📈 Crescimento 
+
+```text
+Usuários Ativos
 
 1000 |                            *
  900 |                         *
@@ -38,10 +50,11 @@ Crescimento de Usuários ativos
  100 | *
      +----------------------------
       Jan Fev Mar Abr Mai Jun Jul
-      
-Impacto Estimado
-
-Redução de estresse: +36%
-Melhoria do sono: +26%
-Aumento da concentração: +28%
-Satisfação dos usuários: +38%
+🎯 Impacto Estimado
+📉 Redução do estresse: 36%
+😴 Melhoria da qualidade do sono: 26%
+🧠 Aumento da concentração: 28%
+😊 Satisfação dos usuários: 38%
+👥 Colaboradores
+KingsBJWeb — Desenvolvimento principal
+Benjamin Reiis (@benjaminreiis) — Colaboração e apoio ao desenvolvimento
